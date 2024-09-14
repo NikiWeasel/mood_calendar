@@ -1,8 +1,9 @@
+import 'package:calender/screens/calender_screen.dart';
 import 'package:calender/widgets/card_slider.dart';
 import 'package:calender/widgets/diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:calender/widgets/date_picker_sheet.dart';
+import 'package:calender/widgets/date_picker_widget.dart';
 import 'package:calender/widgets/custom_tap.dart';
 import 'package:flutter/widgets.dart';
 import 'package:date_format/date_format.dart';
@@ -16,10 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void showDatePickerSheet() {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (ctx) => DatePickerSheet());
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => CalenderScreen()));
   }
 
   @override
