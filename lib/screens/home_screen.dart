@@ -16,9 +16,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void showDatePickerSheet() {
-    Navigator.of(context)
+  DateTime selctedDate = DateTime.now();
+  String formattedDate =
+      formatDate(DateTime.now(), [dd, ' ', MM, ' ', hh, ':', mm]);
+
+  void showDatePickerSheet() async {
+    DateTime newValue = await Navigator.of(context)
         .push(MaterialPageRoute(builder: (ctx) => CalenderScreen()));
+    setState(() {
+      if (newValue == null) return;
+      formattedDate = formatDate(newValue, [dd, ' ', MM, ' ', hh, ':', mm]);
+    });
   }
 
   @override
@@ -29,9 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate =
-        formatDate(DateTime.now(), [dd, ' ', MM, ' ', hh, ':', mm]);
     return DefaultTabController(
       // initialIndex: 1,
       length: 2,

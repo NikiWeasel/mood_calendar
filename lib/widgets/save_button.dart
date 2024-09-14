@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({super.key, required this.isReadOnly});
+  const SaveButton({super.key, required this.isReadOnly, required this.onTap});
 
   final bool isReadOnly;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SaveButton extends StatelessWidget {
                       Theme.of(context).colorScheme.onSecondary,
                 )
               : ElevatedButton.styleFrom(),
-          onPressed: isReadOnly ? null : () {},
+          onPressed: isReadOnly ? null : onTap,
           child: Text(
             'Сохранить',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(

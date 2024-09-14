@@ -36,6 +36,28 @@ class _DiaryState extends ConsumerState<Diary> {
       });
     }
 
+    void showPopUp() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text('PopUp'),
+              content: Text('Все хорошо.'),
+              actions: [
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Ок',
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ))
+              ]);
+        },
+      );
+    }
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +116,10 @@ class _DiaryState extends ConsumerState<Diary> {
                 const SizedBox(
                   height: 20,
                 ),
-                SaveButton(isReadOnly: isReadOnly),
+                SaveButton(
+                  isReadOnly: isReadOnly,
+                  onTap: showPopUp,
+                ),
               ],
             ),
           ),
