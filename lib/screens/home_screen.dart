@@ -42,7 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text(formattedDate)),
+          title: Center(
+              child: Text(formattedDate,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ))),
           actions: [
             IconButton(
                 onPressed: () {

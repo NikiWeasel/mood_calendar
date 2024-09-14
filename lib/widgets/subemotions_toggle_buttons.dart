@@ -53,7 +53,7 @@ class _SubemotionsToggleButtonsState
       int localIndex,
     ) {
       setState(() {
-        subemotionNotifier.toggleSubemotionButton(localIndex);
+        subemotionNotifier.toggleSubemotionButton(localIndex, intIndex);
       });
     }
 
@@ -69,7 +69,7 @@ class _SubemotionsToggleButtonsState
                     child: IntrinsicWidth(
                       child: SubemotionButton(
                         label: emotionsListList[intIndex][i],
-                        isSelected: subemotionBoolList[i],
+                        isSelected: subemotionBoolList[intIndex][i],
                         onTap: onTap,
                         localIndex: i,
                       ),

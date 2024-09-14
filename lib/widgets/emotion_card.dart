@@ -57,11 +57,11 @@ class _EmotionCardState extends ConsumerState<EmotionCard> {
             borderRadius: BorderRadius.circular(76),
             onTap: () {
               setState(() {
-                if (emotionIndex != widget.index) {
-                  ref
-                      .read(subemotionsProvider.notifier)
-                      .unselectSubemotionButtons();
-                }
+                // if (emotionIndex != widget.index) {
+                //   // ref
+                //   //     .read(subemotionsProvider.notifier)
+                //   //     .unselectSubemotionButtons();
+                // }
                 emotionNotifier.toggleEmotionButton(widget.index);
                 emotionIndexNotifier.setIndex(widget.index);
               });
