@@ -49,7 +49,11 @@ class _CalenderScreenState extends State<CalenderScreen> {
           ),
           actions: [
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    setDateTime(DateTime.now());
+                  });
+                },
                 child: Text(
                   'Сегодня',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(

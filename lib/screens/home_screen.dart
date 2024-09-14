@@ -20,11 +20,12 @@ class _HomeScreenState extends State<HomeScreen> {
   String formattedDate =
       formatDate(DateTime.now(), [dd, ' ', MM, ' ', hh, ':', mm]);
 
+  var tabIndex = 0;
+
   void showDatePickerSheet() async {
     DateTime newValue = await Navigator.of(context)
         .push(MaterialPageRoute(builder: (ctx) => CalenderScreen()));
     setState(() {
-      if (newValue == null) return;
       formattedDate = formatDate(newValue, [dd, ' ', MM, ' ', hh, ':', mm]);
     });
   }
@@ -58,21 +59,31 @@ class _HomeScreenState extends State<HomeScreen> {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20.0),
             child: Container(
-              width: 320,
+              width: 390,
               height: 30,
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(47)),
-              child: const TabBar(
-                isScrollable: true,
+              child: TabBar(
+                // isScrollable: true,
+                onTap: (int index) {
+                  setState(() {
+                    tabIndex = index;
+                  });
+                },
+
                 dividerColor: Colors.transparent,
                 tabs: <Widget>[
                   CustomTab(
                     imageUrl: 'assets/icons/diary.png',
                     label: 'Дневник настроения',
+                    isSelected: tabIndex == 0 ? true : false,
                   ),
                   CustomTab(
-                      imageUrl: 'assets/icons/stat.png', label: 'Статистика'),
+                    imageUrl: 'assets/icons/stat.png',
+                    label: 'Статистика',
+                    isSelected: tabIndex == 1 ? true : false,
+                  ),
                 ],
                 indicator: BoxDecoration(),
               ),
