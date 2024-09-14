@@ -1,26 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SubemotionsListNotifier extends StateNotifier<List<bool>> {
-  SubemotionsListNotifier() : super([]);
+  SubemotionsListNotifier() : super(List.generate(11, (fd) => false));
 
-  void innitSubemotionsList(int length) {
+  void initSubemotionsList(int length) {
     state = List.generate(length, (fd) => false);
   }
 
-  void toggleSubemotionButton(int index, String emotionName) {
-    // final isSubemotionSelected = state[index];
-
+  void toggleSubemotionButton(int index) {
     var newList = state;
     newList[index] = !newList[index];
     state = newList;
-    // if (isSubemotionSelected) {
-    //   var newList = state;
-    //   newList[index] = !newList[index];
-    //   state = newList;
-    // } else {
-    //   state = [...state, meal];
-    //   return true;
-    // }
+  }
+
+  void unselectSubemotionButtons() {
+    state = List.generate(11, (fd) => false);
   }
 }
 

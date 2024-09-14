@@ -14,27 +14,10 @@ class EmotionsRow extends ConsumerStatefulWidget {
 }
 
 class _EmotionsRowState extends ConsumerState<EmotionsRow> {
-  late final emotionNotifier;
-  late final emotionBoolList;
-
   List<bool> boolList = List.generate(emotionList.length, (fd) => false);
 
   @override
   Widget build(BuildContext context) {
-    // final emotionNotifier = ref.watch(emotionsProvider.notifier);
-    // emotionNotifier.innitEmotionsList(6);
-    // final emotionBoolList = ref.watch(emotionsProvider);
-
-    // final bool isSelected = emotionBoolList[widget.index];
-    void onTap(int index, List<bool> boolList) {
-      setState(() {
-        boolList = List.generate(emotionList.length, (fd) => false);
-        // print('object');
-        boolList[index] = !boolList[index];
-        print(boolList[index]);
-      });
-    }
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -44,7 +27,6 @@ class _EmotionsRowState extends ConsumerState<EmotionsRow> {
               index: i,
               boolList: boolList,
               emotion: emotionList[i],
-              onTap: onTap,
             ),
         ],
       ),

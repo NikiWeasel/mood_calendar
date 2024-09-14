@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:calender/provider/subemotions_list_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,23 +8,24 @@ import 'package:calender/provider/emotions_list_provider.dart';
 import 'package:calender/models/emotion.dart';
 
 class EmotionCard extends ConsumerStatefulWidget {
-  const EmotionCard(
-      {super.key,
-      required this.index,
-      required this.boolList,
-      required this.emotion,
-      required this.onTap});
+  const EmotionCard({
+    super.key,
+    required this.index,
+    required this.boolList,
+    required this.emotion,
+  });
 
   final int index;
   final List<bool> boolList;
   final Emotion emotion;
-  final void Function(int index, List<bool> boolList) onTap;
 
   @override
   ConsumerState<EmotionCard> createState() => _EmotionCardState();
 }
 
 class _EmotionCardState extends ConsumerState<EmotionCard> {
+  // bool isSelected = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,19 +35,18 @@ class _EmotionCardState extends ConsumerState<EmotionCard> {
       () {
         ref
             .read(emotionsProvider.notifier)
-            .innitEmotionsList(widget.boolList.length);
+            .initEmotionsList(widget.boolList.length);
+        ref.read(subemotionsProvider.notifier).initSubemotionsList(11);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // final emotionNotifier = ref.watch(emotionsProvider.notifier);
-    // emotionNotifier.innitEmotionsList(6);
-    // final emotionList = ref.watch(emotionsProvider);
-
-    // final bool isSelected = emotionList[widget.index];
-    var boolList = widget.boolList;
+    final emotionNotifier = ref.watch(emotionsProvider.notifier);
+    final emotionList = ref.watch(emotionsProvider);
+    final emotionIndexNotifier = ref.watch(emotionIndexProvider.notifier);
+    final emotionIndex = ref.watch(emotionIndexProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -55,21 +56,20 @@ class _EmotionCardState extends ConsumerState<EmotionCard> {
           child: InkWell(
             borderRadius: BorderRadius.circular(76),
             onTap: () {
-              // emotionNotifier.toggleEmotionButton(widget.index);
               setState(() {
-                // print(widget.boolList[widget.index]);
-                // widget.onTap(widget.index, widget.boolList);
-                // print(widget.boolList[widget.index]);
-                boolList = ref.read(emotionsProvider);
-                ref
-                    .read(emotionsProvider.notifier)
-                    .toggleEmotionButton(widget.index);
+                if (emotionIndex != widget.index) {
+                  ref
+                      .read(subemotionsProvider.notifier)
+                      .unselectSubemotionButtons();
+                }
+                emotionNotifier.toggleEmotionButton(widget.index);
+                emotionIndexNotifier.setIndex(widget.index);
               });
             },
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(76),
-                side: boolList[widget.index]
+                side: emotionList[widget.index]
                     ? BorderSide(
                         color: Theme.of(context).colorScheme.secondary,
                         width: 2,
