@@ -46,7 +46,6 @@ class _EmotionCardState extends ConsumerState<EmotionCard> {
     final emotionNotifier = ref.watch(emotionsProvider.notifier);
     final emotionList = ref.watch(emotionsProvider);
     final emotionIndexNotifier = ref.watch(emotionIndexProvider.notifier);
-    final emotionIndex = ref.watch(emotionIndexProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -57,11 +56,6 @@ class _EmotionCardState extends ConsumerState<EmotionCard> {
             borderRadius: BorderRadius.circular(76),
             onTap: () {
               setState(() {
-                // if (emotionIndex != widget.index) {
-                //   // ref
-                //   //     .read(subemotionsProvider.notifier)
-                //   //     .unselectSubemotionButtons();
-                // }
                 emotionNotifier.toggleEmotionButton(widget.index);
                 emotionIndexNotifier.setIndex(widget.index);
               });

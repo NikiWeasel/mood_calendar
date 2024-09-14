@@ -12,10 +12,11 @@ class SubemotionsListNotifier extends StateNotifier<List<List<bool>>> {
   }
 
   void toggleSubemotionButton(int subemotionIndex, int emotionIndex) {
-    var newList = state;
+    final newList = List<List<bool>>.from(state);
     newList[emotionIndex][subemotionIndex] =
         !newList[emotionIndex][subemotionIndex];
     state = newList;
+    print(state);
   }
 
   void unselectSubemotionButtons() {

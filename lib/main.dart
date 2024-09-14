@@ -7,11 +7,11 @@ final theme = ThemeData(
     useMaterial3: true,
     colorScheme: const ColorScheme.light(
         brightness: Brightness.light,
-        // seedColor: const Color.fromARGB(255, 165, 0, 107),
         primary: Color(0xffE1DDD8),
         secondary: Color(0xffFF8702),
         //Мандарин
         onSecondary: Color(0xff919EAB),
+        onPrimary: Color(0xffF2F2F2),
         //
         onSurface: Color(0xff4C4C69) //
         ),

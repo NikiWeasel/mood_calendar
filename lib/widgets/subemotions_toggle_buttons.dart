@@ -20,24 +20,8 @@ class _SubemotionsToggleButtonsState
     extends ConsumerState<SubemotionsToggleButtons> {
   var placeholderList = List.generate(11, (fd) => false);
 
-  // void deleteSelection() {
-  //   setState(() {
-  //     print('object');
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // if (!isVisible || index == null) {
-    //   return const SizedBox.shrink();
-    // }
-
-    // // emotionsListList[index]
-    // ref.listen<int>(emotionIndexProvider, (previousIndex, currentIndex) {
-    //   // Когда index меняется, вызываем функцию deleteSelection
-    //   deleteSelection();
-    // });
-
     double index = ref.watch(emotionIndexProvider);
     var subemotionBoolList = ref.watch(subemotionsProvider);
     var subemotionNotifier = ref.watch(subemotionsProvider.notifier);

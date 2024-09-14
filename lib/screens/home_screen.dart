@@ -1,9 +1,5 @@
 import 'package:calender/widgets/card_slider.dart';
 import 'package:calender/widgets/diary.dart';
-import 'package:calender/widgets/emotions_row.dart';
-import 'package:calender/widgets/page_switcher.dart';
-import 'package:calender/widgets/subemotion_button.dart';
-import 'package:calender/widgets/subemotions_toggle_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:calender/widgets/date_picker_sheet.dart';

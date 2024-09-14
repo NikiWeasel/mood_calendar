@@ -3,10 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardSlider extends StatefulWidget {
-  const CardSlider({super.key, required this.minText, required this.maxText});
+  const CardSlider(
+      {super.key,
+      required this.minText,
+      required this.maxText,
+      required this.isReadOnly});
 
   final String minText;
   final String maxText;
+  final bool isReadOnly;
 
   @override
   State<CardSlider> createState() => _CardSliderState();
@@ -41,16 +46,26 @@ class _CardSliderState extends State<CardSlider> {
               ],
             ),
           ),
-          Slider(
-            value: _currentSliderValue,
-            max: 100,
-            divisions: 10,
-            label: _currentSliderValue.round().toString(),
-            onChanged: (double value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
+          IgnorePointer(
+            ignoring: widget.isReadOnly,
+            child: SliderTheme(
+              data: widget.isReadOnly
+                  ? SliderTheme.of(context).copyWith(
+                      activeTrackColor: Theme.of(context).colorScheme.primary,
+                      thumbColor: Theme.of(context).colorScheme.primary)
+                  : SliderTheme.of(context),
+              child: Slider(
+                value: _currentSliderValue,
+                max: 100,
+                divisions: 10,
+                label: _currentSliderValue.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    _currentSliderValue = value;
+                  });
+                },
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

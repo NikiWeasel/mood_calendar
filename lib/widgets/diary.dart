@@ -1,16 +1,41 @@
 import 'package:calender/widgets/card_slider.dart';
+import 'package:calender/widgets/card_text_field.dart';
 import 'package:calender/widgets/emotions_row.dart';
-import 'package:calender/widgets/page_switcher.dart';
-import 'package:calender/widgets/subemotion_button.dart';
+import 'package:calender/widgets/save_button.dart';
 import 'package:calender/widgets/subemotions_toggle_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:calender/provider/subemotions_list_provider.dart';
 
-class Diary extends StatelessWidget {
+class Diary extends ConsumerStatefulWidget {
   const Diary({super.key});
 
   @override
+  ConsumerState<Diary> createState() => _DiaryState();
+}
+
+class _DiaryState extends ConsumerState<Diary> {
+  bool isReadOnly = true;
+
+  @override
   Widget build(BuildContext context) {
+    var subemotionBoolList = ref.watch(subemotionsProvider);
+
+    bool newIsReadOnly = true;
+    for (var subemotion in subemotionBoolList) {
+      if (subemotion.contains(true)) {
+        newIsReadOnly = false;
+        break;
+      }
+    }
+
+    if (isReadOnly != newIsReadOnly) {
+      setState(() {
+        isReadOnly = newIsReadOnly;
+      });
+    }
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,22 +48,23 @@ class Diary extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onSurface,
                     )),
           ),
-          EmotionsRow(),
-          SubemotionsToggleButtons(),
+          const EmotionsRow(),
+          const SubemotionsToggleButtons(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const SizedBox(
-                //   height: 20,
-                // ),
                 Text('Уровень стресса',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onSurface,
                         )),
-                CardSlider(minText: 'Низкий', maxText: 'Высокий'),
+                CardSlider(
+                  minText: 'Низкий',
+                  maxText: 'Высокий',
+                  isReadOnly: isReadOnly,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -47,7 +73,11 @@ class Diary extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onSurface,
                         )),
-                CardSlider(minText: 'Неуверенность', maxText: 'Уверенность'),
+                CardSlider(
+                  minText: 'Неуверенность',
+                  maxText: 'Уверенность',
+                  isReadOnly: isReadOnly,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -58,32 +88,13 @@ class Diary extends StatelessWidget {
                         )),
                 Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: 121),
-                      child: TextField(
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                            hintText: 'Введите заметку',
-                            border: InputBorder.none),
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: CardTextField(isReadOnly: isReadOnly)),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Сохранить',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.surface),
-                      )),
-                ),
+                SaveButton(isReadOnly: isReadOnly),
               ],
             ),
           ),
